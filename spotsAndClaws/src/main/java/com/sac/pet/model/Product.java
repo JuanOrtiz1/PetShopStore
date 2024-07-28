@@ -41,6 +41,9 @@ public class Product {
 	
 	@Column(name = "REVENUE")
 	private String revenue;
+	
+	@Column(name = "STATUS")
+	private String status;
 
 	public Long getProduct() {
 		return product;
@@ -121,5 +124,12 @@ public class Product {
 	public void setRevenue(String revenue) {
 		this.revenue = revenue;
 	}
-	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

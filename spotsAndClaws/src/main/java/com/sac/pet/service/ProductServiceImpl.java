@@ -42,9 +42,15 @@ public class ProductServiceImpl implements ProductService {
     		if(existProduct(id)) {
     			Product existingProduct = productRepository.findById(id)
                         .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado con ID: " + id));
-    			existingProduct.setDescription(updatedProduct.getDescription());
-    			existingProduct.setNumberPhone(updatedProduct.getNumberPhone());
-    			existingProduct.setEmail(updatedProduct.getEmail());
+    			existingProduct.setNameProduct(updatedProduct.getNameProduct());
+    			existingProduct.setCategory(updatedProduct.getCategory());
+    			existingProduct.setPresentation(updatedProduct.getPresentation());
+    			existingProduct.setParamSupplier(updatedProduct.getParamSupplier());
+    			existingProduct.setProductWeight(updatedProduct.getProductWeight());
+    			existingProduct.setProductWeightType(updatedProduct.getProductWeightType());
+    			existingProduct.setPurchasePrice(updatedProduct.getPurchasePrice());
+    			existingProduct.setSalePrice(updatedProduct.getSalePrice());
+    			existingProduct.setRevenue(updatedProduct.getRevenue());
     			existingProduct.setStatus(updatedProduct.getStatus());
     			productRepository.save(existingProduct);
     			msg = "Se ha actualizado correctamente el Proveedor";
