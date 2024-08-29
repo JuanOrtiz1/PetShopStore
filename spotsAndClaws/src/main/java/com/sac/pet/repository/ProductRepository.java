@@ -7,5 +7,5 @@ import com.sac.pet.model.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>{
-		Product findByDescription(String name);
+	Product findByNameProduct(String nameProduct);
 }

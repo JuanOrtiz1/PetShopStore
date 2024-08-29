@@ -26,17 +26,17 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/crearProveedor")
+    @PostMapping("/crearProducto")
     public Product createProduct(@RequestBody Product product) {
         return productService.createProduct(product);
     }
     
-    @PutMapping("/modificarProveedor/{id}")
+    @PutMapping("/modificarProducto/{id}")
     public String updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
         return productService.updateProduct(id, updatedProduct);
     }
     
-    @PutMapping("/modificarEstadoProveedor/{id}")
+    @PutMapping("/modificarEstadoProducto/{id}")
     public String changeProductStatus(@PathVariable Long id, @RequestBody Product product) {
         return productService.changeProductStatus(id, product);
     }
@@ -46,12 +46,12 @@ public class ProductController {
         return productService.existProduct(product);
     }
     
-    @GetMapping("/buscarPorNombre/{description}")
-    public Product getProductByName(@PathVariable String description) {
-        return productService.findProductByName(description);
+    @GetMapping("/buscarPorNombre/{nameProduct}")
+    public Product getProductByName(@PathVariable String nameProduct) {
+        return productService.findProductByName(nameProduct);
     }
     
-    @DeleteMapping("eliminarProveedor/{id}")
+    @DeleteMapping("eliminarProducto/{id}")
     public ResponseEntity<String> deleteProductById(@PathVariable Long id) {
         try {
             productService.deleteProductById(id);

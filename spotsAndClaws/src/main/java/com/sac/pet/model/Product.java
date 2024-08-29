@@ -30,7 +30,7 @@ public class Product {
 	@Column(name = "PRODUCT_WEIGHT")
 	private String productWeight;
 	
-	@Column(name = "PRODUCT_WEIGTH_TYPE")
+	@Column(name = "PRODUCT_WEIGHT_TYPE")
 	private String productWeightType;
 	
 	@Column(name = "PURCHASE_PRICE")

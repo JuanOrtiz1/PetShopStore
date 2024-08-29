@@ -2,9 +2,7 @@ package com.sac.pet.service;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
-
 import com.sac.pet.model.Product;
 import com.sac.pet.repository.ProductRepository;
 
@@ -19,7 +17,7 @@ public class ProductServiceImpl implements ProductService {
     }
     @Override
     public Product createProduct(Product product) {
-        // Implementa la lógica para guardar el proveedor en la base de datos
+        // Implementa la lógica para guardar el producto en la base de datos
         return productRepository.save(product);
     }
     
@@ -63,13 +61,13 @@ public class ProductServiceImpl implements ProductService {
 		return msg;
     }
     @Override
-    public Product findProductByName(String name) {
-        return productRepository.findByDescription(name);
+    public Product findProductByName(String nameProduct) {
+        return productRepository.findByNameProduct(nameProduct);
     }
     @Override
     public void deleteProductById(Long id) {
         Product product = productRepository.findById(id)
-                          .orElseThrow(() -> new NoSuchElementException("No existe el proveedor con ID: " + id));
+                          .orElseThrow(() -> new NoSuchElementException("No existe el producto con ID: " + id));
         productRepository.delete(product);
     }
     

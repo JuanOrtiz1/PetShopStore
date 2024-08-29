@@ -34,9 +34,67 @@ CREATE TABLE `sac`.`sac_tb_product` (
   `PARAM_SUPPLIER` INT,
   FOREIGN KEY (`PARAM_SUPPLIER`) REFERENCES `sac_tb_supplier`(`SUPPLIER`),
   `PRODUCT_WEIGHT` INT(7),
-  `PRODUCT_WEIGHT_TYPE` INT(7),
+  `PRODUCT_WEIGHT_TYPE` VARCHAR(20),
   `PURCHASE_PRICE` INT(7),
   `SALE_PRICE` INT(7),
-  `REVENUE` INT(7)
+  `REVENUE` INT(7),
+  `STATUS` VARCHAR(2)
 );
 COMMENT = 'Tabla de productos';
+
+CREATE TABLE sac_tb_stock (
+    STOCK INT PRIMARY KEY AUTO_INCREMENT,
+    PRODUCT INT,
+    AMOUNT DECIMAL(10, 2) NOT NULL, -- Cantidad en unidades
+    CONTAINER_TYPE VARCHAR(50), -- Tipo de envase
+    UNIT_OF_MASS VARCHAR(20),
+    STATUS_STOCK ENUM('Sellado', 'Destapado') NOT NULL, -- Estado del empaque
+    CONTAINER_WEIGHT decimal(10,2), -- Tamaño del envase, si aplica
+    DATE_ADMISSION DATE, -- Fecha en la que el stock llegó
+    DUE_DATE DATE, -- Fecha de vencimiento, si aplica
+    FOREIGN KEY (PRODUCT) REFERENCES sac_tb_product(PRODUCT)
+);
+
+
+
+--Para insertar en stock:
+--SELECT * FROM sac_tb_stock;	-- 
+INSERT INTO sac_tb_stock (
+    PRODUCT,            -- Clave foránea que se refiere a la columna PRODUCT en sac_tb_product
+    AMOUNT,             -- Cantidad en unidades
+    CONTAINER_TYPE,     -- Tipo de envase
+    UNIT_OF_MASS,		-- Unidad de medida de masa [LB,KG,TON]
+    STATUS_STOCK,       -- Estado del empaque
+    CONTAINER_WEIGHT,   -- Tamaño del envase
+    DATE_ADMISSION,     -- Fecha en la que el stock llegó
+    DUE_DATE            -- Fecha de vencimiento, si aplica
+) VALUES (
+    1,                  -- ID del producto (debe coincidir con un PRODUCT en sac_tb_product)
+    1,              -- Cantidad en unidades
+    'Bulto',          -- Tipo de envase (debe coincidir con un valor en PRESENTATION en sac_tb_product)
+    'KG',				-- Unidad de medida de la masa (LB,KG,TON)
+    'Sellado',          -- Estado del empaque
+    '25',             -- Tamaño del envase
+    '2024-08-10',       -- Fecha de admisión
+    '2026-08-10'        -- Fecha de vencimiento
+);
+
+CREATE TABLE `sac`.`sac_tb_sale` (
+  `SALE` INT NOT NULL AUTO_INCREMENT,
+  `STOCK` INT NOT NULL,
+  `TYPE_SALE`  ENUM('Granel', 'Bulto', 'Arena', 'Accesorio', 'Paquete', 'Snack') NOT NULL,
+  `SELLING_WEIGHT` INT,
+  `SALE_PRICE` INT NOT NULL,
+  `PURCHASE_PRICE` INT NOT NULL,
+  `REVENUE` VARCHAR(100) NOT NULL,
+  `PAYMENT_METHOD`ENUM('Efectivo', 'Nequi', 'Daviplata'),
+  `MONEY_RECEIVED`  INT NOT NULL,
+  `MONEY_RETURNED`  INT NOT NULL,
+  `DATE_SALE` DATETIME NOT NULL,  
+   `STATUS_SALE` VARCHAR(2) NOT NULL,
+  FOREIGN KEY (STOCK) REFERENCES sac_tb_stock(STOCK),
+  PRIMARY KEY (`SALE`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci
+COMMENT = 'Tabla para listar los productos que se venden en la tienda.';commit;
